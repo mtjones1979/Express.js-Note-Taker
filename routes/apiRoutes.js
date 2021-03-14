@@ -1,5 +1,5 @@
 // use GET POST and DELETE from notes
-const router = require("express").Router();
+const { Router } = require("express");
 const notes = require("../db/notes");
 
 
