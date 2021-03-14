@@ -1,13 +1,22 @@
 const util = require("util");
-const fs = require("fs");
+
 
 // if I use UUID - I would require it here 
-// read note, write note, get notes, add note, remove note functions
-const readFileAsync = util.promisify(fs.readFile);
-const writeFileAsync = util.promisify(fs.writeFile);
+// need to check that obj contains these properties: id, title, text
+const notes = (obj) => {
+    let titleCheck = "title" in obj;
+    let textCheck = "text" in obj;
+  
+    if (Object.keys(obj).length !== 2) {
+      return false;
+    }
+  
+    if (titleCheck && textCheck) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  module.exports = notes();
 
-class Note {
-    
-}
-
-module.exports = new Note();
