@@ -1,22 +1,49 @@
 const util = require("util");
-
-
+const fs = require("fs");
+// tutor explained what would need to go here
 // if I use UUID - I would require it here 
-// need to check that obj contains these properties: id, title, text
-const notes = (obj) => {
-    let titleCheck = "title" in obj;
-    let textCheck = "text" in obj;
-  
-    if (Object.keys(obj).length !== 2) {
-      return false;
-    }
-  
-    if (titleCheck && textCheck) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  
-  module.exports = notes();
+// read note, write note, get notes, add note, remove note functions
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
+class Notes {
+  constructor(){
+    this.idDum = 0;
+  }
+  read(){
+    return readFileAsync('db/db.json', 'utf8');
+  }
+  write(note) {
+    return writeFileAsync('db/db.json', JSON.stringify(note))
+  }
+  getNotes() {
+    console.log('get notes')
+    return this.read().then(notes => {
+      console.log(notes)
+      let notesArray;
+      try{
+        notesArray = [].concat(JSON.parse(notes));
+      }
+      catch(err){
+        notesArray = [];
+      }
+      return notesArray;
+    })
+  }
+  addNotes(note) {
+    console.log('add notes');
+    const {title, text} = note;
+    const newNote = {title, text, id: ++this.idDum}
+    return this.getNotes()
+      .then(notes => [...notes, newNote])
+      .then(updateNotes => this.write(updateNotes))
+      .then(() => newNote)
+  }
+  removeNotes(id) {
+    console.log("remove notes");
+    return this.getNotes()
+      .then(notes => notes.filter(note => note.id !== parseInt(id)))
+      .then(updatedNotes => this.write(updatedNotes))
+  }
+}
+module.exports = new Notes();
