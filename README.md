@@ -18,7 +18,7 @@
   ## Usage
   
   * Heroku Link:
-  [Video Link]()
+  [Video Link](https://thawing-tor-44424.herokuapp.com/notes)
   
   * Screenshots:
   ![alt text](https://user-images.githubusercontent.com/74076318/111844384-f29eca80-88d0-11eb-83f7-34e63fce4e65.png)
