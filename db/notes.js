@@ -8,7 +8,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 class Notes {
   constructor(){
-    this.idDum = 0;
+    this.idNum = 0;
   }
   read(){
     return readFileAsync('db/db.json', 'utf8');
@@ -16,10 +16,10 @@ class Notes {
   write(note) {
     return writeFileAsync('db/db.json', JSON.stringify(note))
   }
+  // TA/Tutor helped with questions regarding these functions
+  // As well as previous mini project and cdn
   getNotes() {
-    console.log('get notes')
     return this.read().then(notes => {
-      console.log(notes)
       let notesArray;
       try{
         notesArray = [].concat(JSON.parse(notes));
@@ -29,18 +29,16 @@ class Notes {
       }
       return notesArray;
     })
-  }
+  } 
   addNotes(note) {
-    console.log('add notes');
     const {title, text} = note;
-    const newNote = {title, text, id: ++this.idDum}
+    const newNote = {title, text, id: ++this.idNum}
     return this.getNotes()
       .then(notes => [...notes, newNote])
       .then(updateNotes => this.write(updateNotes))
       .then(() => newNote)
   }
   removeNotes(id) {
-    console.log("remove notes");
     return this.getNotes()
       .then(notes => notes.filter(note => note.id !== parseInt(id)))
       .then(updatedNotes => this.write(updatedNotes))
