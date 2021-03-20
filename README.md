@@ -32,7 +32,7 @@
   The application is ran through Heroku.
 
   ## Contributors
-  Jennifer Kruk - my TA helped with guidance
+  Jennifer Kruk - my Tutor helped with guidance
   
   *Allow contributors in the future:* 
   No
