@@ -16,8 +16,8 @@ class Notes {
   write(note) {
     return writeFileAsync('db/db.json', JSON.stringify(note))
   }
-  // TA/Tutor helped with questions regarding these functions
-  // As well as previous mini project and cdn
+  // Tutor and google (cdn) helped with questions regarding these functions
+  // As well as previous mini project
   getNotes() {
     return this.read().then(notes => {
       let notesArray;
